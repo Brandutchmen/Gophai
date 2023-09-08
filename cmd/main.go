@@ -3,22 +3,17 @@ package main
 import (
 	"app/database"
 	"app/router"
-	"log"
 
-	"github.com/gofiber/fiber/v2"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func main() {
-	app := fiber.New(fiber.Config{
-		Prefork:       true,
-		CaseSensitive: true,
-		StrictRouting: true,
-		ServerHeader:  "Fiber",
-		AppName:       "Fiber App",
-	})
-
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
 	database.Connect()
-
-	router.SetupRoutes(app)
-	log.Fatal(app.Listen(":3000"))
+	router.SetupRoutes(r)
+	http.ListenAndServe(":3000", r)
 }
