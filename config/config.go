@@ -16,3 +16,13 @@ func Config(key string) string {
 
 	return os.Getenv(key)
 }
+
+func ConfigWithDefault(key string, defaultValue string) string {
+	value := Config(key)
+
+	if value == "" {
+		value = defaultValue
+	}
+
+	return value
+}

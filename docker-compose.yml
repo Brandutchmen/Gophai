@@ -19,6 +19,5 @@ services:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - postgres-db:/var/lib/postgresql/data
-
 volumes:
   postgres-db:
