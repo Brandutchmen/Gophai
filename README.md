@@ -33,3 +33,11 @@ docker-compose up
 ---
 
 Open the GraphQL Playground at [http://localhost:3000/api/graphql/playground](http://localhost:3000/api/graphql/playground)
+
+---
+
+# Running Tests
+
+```bash
+make test
+```
