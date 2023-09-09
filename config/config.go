@@ -33,15 +33,27 @@ func GetConfig() (*Config, error) {
 	return config, err
 }
 
+func SetConfig(cfg Config) {
+	config = &cfg
+}
+
 func loadEnvFile() (*Config, error) {
 	fmt.Println("Loading .env file from disk")
 
 	// Load the environment variables from the .env file
-	if err := godotenv.Load(".env"); err != nil {
-		return nil, fmt.Errorf("Error loading .env file: %w", err)
+	env := os.Getenv("APP_ENV")
+	if "" == env {
+		env = "development"
 	}
 
-	// Create a new Config struct and populate it with environment variables
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load()
+
+	// The Original .env// Create a new Config struct and populate it with environment variables
 	config := &Config{
 		AppEnv:    os.Getenv("APP_ENV"),
 		AppSecret: os.Getenv("APP_SECRET"),
