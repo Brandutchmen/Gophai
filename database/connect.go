@@ -3,7 +3,6 @@ package database
 import (
 	"app/config"
 	"fmt"
-	"strconv"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -11,19 +10,19 @@ import (
 
 func Connect() {
 	var err error
-	p := config.Config("DB_PORT")
-	port, err := strconv.ParseUint(p, 10, 32)
+
+	config, err := config.GetConfig()
 	if err != nil {
-		panic("failed to parse DB_PORT to int")
+		panic("Failed to load config when connecting to the database")
 	}
 
 	dsn := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		config.Config("DB_HOST"),
-		port,
-		config.Config("DB_USER"),
-		config.Config("DB_PASSWORD"),
-		config.Config("DB_NAME"),
+		config.DbHost,
+		config.DbPort,
+		config.DbUser,
+		config.DbPassword,
+		config.DbName,
 	)
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 

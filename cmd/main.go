@@ -1,6 +1,7 @@
 package main
 
 import (
+	"app/config"
 	"app/database"
 	"app/router"
 	"net/http"
@@ -10,6 +11,10 @@ import (
 )
 
 func main() {
+	if _, err := config.GetConfig(); err != nil {
+		panic("Failed to load .env file")
+	}
+
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	database.Connect()

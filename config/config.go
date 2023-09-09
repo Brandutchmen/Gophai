@@ -3,26 +3,63 @@ package config
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"sync"
 
 	"github.com/joho/godotenv"
 )
 
-func Config(key string) string {
-	err := godotenv.Load(".env")
+type Config struct {
+	AppEnv    string
+	AppSecret string
 
-	if err != nil {
-		fmt.Println("Error loading .env file")
-	}
-
-	return os.Getenv(key)
+	DbHost     string
+	DbPort     int
+	DbUser     string
+	DbPassword string
+	DbName     string
 }
 
-func ConfigWithDefault(key string, defaultValue string) string {
-	value := Config(key)
+var (
+	config     *Config
+	configOnce sync.Once
+)
 
-	if value == "" {
-		value = defaultValue
+func GetConfig() (*Config, error) {
+	var err error
+	configOnce.Do(func() {
+		config, err = loadEnvFile()
+	})
+	return config, err
+}
+
+func loadEnvFile() (*Config, error) {
+	fmt.Println("Loading .env file from disk")
+
+	// Load the environment variables from the .env file
+	if err := godotenv.Load(".env"); err != nil {
+		return nil, fmt.Errorf("Error loading .env file: %w", err)
 	}
 
-	return value
+	// Create a new Config struct and populate it with environment variables
+	config := &Config{
+		AppEnv:    os.Getenv("APP_ENV"),
+		AppSecret: os.Getenv("APP_SECRET"),
+	}
+
+	// Parse integer environment variables
+	if portStr := os.Getenv("DB_PORT"); portStr != "" {
+		port, err := strconv.Atoi(portStr)
+		if err != nil {
+			return nil, fmt.Errorf("Error parsing DB_PORT: %w", err)
+		}
+		config.DbPort = port
+	}
+
+	config.DbHost = os.Getenv("DB_HOST")
+	config.DbUser = os.Getenv("DB_USER")
+	config.DbPassword = os.Getenv("DB_PASSWORD")
+	config.DbName = os.Getenv("DB_NAME")
+
+	return config, nil
 }
