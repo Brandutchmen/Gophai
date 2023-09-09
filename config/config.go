@@ -25,6 +25,12 @@ var (
 	configOnce sync.Once
 )
 
+func Init() {
+	if _, err := GetConfig(); err != nil {
+		panic("Failed to load .env file")
+	}
+}
+
 func GetConfig() (*Config, error) {
 	var err error
 	configOnce.Do(func() {

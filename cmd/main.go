@@ -11,9 +11,7 @@ import (
 )
 
 func main() {
-	if _, err := config.GetConfig(); err != nil {
-		panic("Failed to load .env file")
-	}
+	config.Init()
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
