@@ -5,8 +5,6 @@ import (
 	"os"
 	"strconv"
 	"sync"
-
-	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -50,15 +48,8 @@ func loadEnvFile() (*Config, error) {
 	// Load the environment variables from the .env file
 	env := os.Getenv("APP_ENV")
 	if "" == env {
-		env = "development"
+		env = "local"
 	}
-
-	godotenv.Load(".env." + env + ".local")
-	if "test" != env {
-		godotenv.Load(".env.local")
-	}
-	godotenv.Load(".env." + env)
-	godotenv.Load()
 
 	// The Original .env// Create a new Config struct and populate it with environment variables
 	config := &Config{
