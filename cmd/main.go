@@ -3,7 +3,6 @@ package main
 import (
 	"app/database"
 	"app/router"
-
 	"net/http"
 
 	"github.com/go-chi/chi/v5"

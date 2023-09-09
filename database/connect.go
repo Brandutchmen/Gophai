@@ -18,7 +18,8 @@ func Connect() {
 	}
 
 	dsn := fmt.Sprintf(
-		"host=db port=%d user=%s password=%s dbname=%s sslmode=disable",
+		"host=%d port=%d user=%s password=%s dbname=%s sslmode=disable",
+		config.Config("DB_HOST"),
 		port,
 		config.Config("DB_USER"),
 		config.Config("DB_PASSWORD"),
