@@ -6,10 +6,8 @@ import (
 	"app/config"
 )
 
-func setupTestEnv() {
-	config.GetConfig()
-	// Set up the configuration for testing
-	config.SetConfig(config.Config{
+func setupTestEnv() config.Config {
+	return config.SetConfig(config.Config{
 		AppEnv:     "production",
 		AppSecret:  "my-secret",
 		DbPort:     5432,
@@ -22,13 +20,7 @@ func setupTestEnv() {
 
 func TestGetConfig(t *testing.T) {
 
-	setupTestEnv()
-
-	// Get the config
-	cfg, err := config.GetConfig()
-	if err != nil {
-		t.Errorf("Error getting config: %v", err)
-	}
+	cfg := setupTestEnv()
 
 	// Check the config values
 	if cfg.AppEnv != "production" {

@@ -33,8 +33,9 @@ func GetConfig() (*Config, error) {
 	return config, err
 }
 
-func SetConfig(cfg Config) {
+func SetConfig(cfg Config) Config {
 	config = &cfg
+	return cfg
 }
 
 func loadEnvFile() (*Config, error) {
