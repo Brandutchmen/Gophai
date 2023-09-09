@@ -51,7 +51,6 @@ func loadEnvFile() (*Config, error) {
 		env = "local"
 	}
 
-	// The Original .env// Create a new Config struct and populate it with environment variables
 	config := &Config{
 		AppEnv:    os.Getenv("APP_ENV"),
 		AppSecret: os.Getenv("APP_SECRET"),
