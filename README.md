@@ -8,3 +8,28 @@
 - 🧩 Fully Typed GraphQL API with [gqlgen](https://gqlgen.com/)
 - 🔑 Authentication (Coming Soon)
 
+# Quick Start
+
+Clone this project
+
+```bash
+git clone https://github.com/Brandutchmen/Gophai.git
+```
+
+or generate a new project with this [template](https://github.com/new?template_name=Gophai&template_owner=Brandutchmen)
+
+---
+Copy the example environment file
+```bash
+cp .env.example .env
+```
+
+---
+Start the development environment
+```bash
+docker-compose up
+```
+
+---
+
+Open the GraphQL Playground at [http://localhost:3000/api/graphql/playground](http://localhost:3000/api/graphql/playground)
