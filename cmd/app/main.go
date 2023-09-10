@@ -1,9 +1,9 @@
 package main
 
 import (
-	"app/config"
-	"app/database"
-	"app/router"
+	"app/internal/config"
+	"app/internal/database"
+	"app/internal/router"
 	"fmt"
 	"net/http"
 

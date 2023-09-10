@@ -1,7 +1,7 @@
 package database
 
 import (
-	"app/config"
+	"app/internal/config"
 	"fmt"
 
 	"gorm.io/driver/postgres"

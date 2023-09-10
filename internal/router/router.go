@@ -1,7 +1,7 @@
 package router
 
 import (
-	"app/graph"
+	"app/internal/graph"
 	"net/http"
 
 	"github.com/99designs/gqlgen/graphql/handler"

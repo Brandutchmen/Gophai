@@ -3,7 +3,7 @@ package config_test
 import (
 	"testing"
 
-	"app/config"
+	"app/internal/config"
 )
 
 func setupTestEnv() config.Config {

@@ -15,3 +15,6 @@ logs:
 
 run-tests:
 	docker-compose exec web go test -v ./test
+
+generate-graphql:
+	docker-compose exec web go generate -v ./...
