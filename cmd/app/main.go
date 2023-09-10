@@ -20,5 +20,8 @@ func main() {
 	router.SetupRoutes(r)
 	fmt.Println("Server is running on port http://localhost:3000")
 	fmt.Println("GraphQL playground is running on http://localhost:3000/api/graphql/playground")
-	http.ListenAndServe(":3000", r)
+	err := http.ListenAndServe(":3000", r)
+	if err != nil {
+		panic(err)
+	}
 }
