@@ -13,5 +13,5 @@ restart:
 logs:
 	docker-compose logs -f --tail=100
 
-test:
-	docker-compose exec web go test -v ./...
+run-tests:
+	docker-compose exec web go test -v ./test

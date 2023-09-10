@@ -8,7 +8,7 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/src/api
-    command: air cmd/main.go -b 0.0.0.0
+    command: air cmd/app/main.go -b 0.0.0.0
   db:
     image: postgres:alpine
     environment:

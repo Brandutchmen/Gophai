@@ -39,5 +39,5 @@ Open the GraphQL Playground at [http://localhost:3000/api/graphql/playground](ht
 # Running Tests
 
 ```bash
-make test
+make run-tests
 ```
