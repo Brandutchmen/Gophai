@@ -8,6 +8,12 @@
 - 🧩 Fully Typed GraphQL API with [gqlgen](https://gqlgen.com/)
 - 🔑 Authentication (Coming Soon)
 
+# Roadmap
+- [ ] Remove Gorm for sqlc for handling DB
+- [ ] Add authentication
+- [ ] Add authorization middleware
+- [ ] Create role/permission scaffold
+
 # Quick Start
 
 Clone this project
