@@ -45,16 +45,18 @@ func SetConfig(cfg Config) Config {
 }
 
 func loadEnvFile() (*Config, error) {
-	fmt.Println("Loading .env file from disk")
-
-	// Load the environment variables from the .env file
-	if err := godotenv.Load(); err != nil {
-		return nil, fmt.Errorf("Error loading .env file: %w", err)
-	}
 
 	env := os.Getenv("APP_ENV")
 	if "" == env {
 		env = "local"
+	}
+
+	if env != "testing" {
+		fmt.Println("Loading .env file from disk")
+		err := godotenv.Load()
+		if err != nil {
+			return nil, fmt.Errorf("Error loading .env file: %w", err)
+		}
 	}
 
 	config := &Config{
