@@ -9,7 +9,7 @@
 - 🔑 Authentication (Coming Soon)
 
 # Roadmap
-- [ ] Remove Gorm for sqlc for handling DB
+- [ ] Remove Gorm in favor of sqlc for db
 - [ ] Add authentication
 - [ ] Add authorization middleware
 - [ ] Create role/permission scaffold
