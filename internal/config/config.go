@@ -5,6 +5,8 @@ import (
 	"os"
 	"strconv"
 	"sync"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -46,6 +48,10 @@ func loadEnvFile() (*Config, error) {
 	fmt.Println("Loading .env file from disk")
 
 	// Load the environment variables from the .env file
+	if err := godotenv.Load(); err != nil {
+		return nil, fmt.Errorf("Error loading .env file: %w", err)
+	}
+
 	env := os.Getenv("APP_ENV")
 	if "" == env {
 		env = "local"
