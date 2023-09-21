@@ -6,7 +6,6 @@ package graph
 
 import (
 	"app/internal/database"
-	"app/internal/entity"
 	"app/internal/graph/model"
 	"app/internal/repository/impl"
 	"context"
@@ -17,16 +16,15 @@ import (
 func (r *mutationResolver) CreateAuthor(ctx context.Context, input model.NewAuthor) (*model.Author, error) {
 	repo := impl.NewAuthorRepositoryImpl(database.Conn)
 
-	var bio *string
+	var bio string
+
 	if input.Bio != nil {
-		bio = input.Bio
-	} else {
-		bio = nil
+		bio = *input.Bio
 	}
 
-	author := entity.Author{
+	author := model.Author{
 		Name: input.Name,
-		Bio:  *bio,
+		Bio:  &bio,
 	}
 
 	createdAuthor, err := repo.Insert(ctx, author)
@@ -36,8 +34,13 @@ func (r *mutationResolver) CreateAuthor(ctx context.Context, input model.NewAuth
 	authorModel := model.Author{
 		ID:   string(createdAuthor.ID),
 		Name: createdAuthor.Name,
-		Bio:  &createdAuthor.Bio,
+		Bio:  createdAuthor.Bio,
 	}
+
+	if createdAuthor.Bio != nil {
+		authorModel.Bio = createdAuthor.Bio
+	}
+
 	return &authorModel, nil
 }
 
