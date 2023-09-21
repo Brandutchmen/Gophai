@@ -3,7 +3,6 @@ package config
 import (
 	"fmt"
 	"os"
-	"strconv"
 	"sync"
 
 	"github.com/joho/godotenv"
@@ -13,11 +12,7 @@ type Config struct {
 	AppEnv    string
 	AppSecret string
 
-	DbHost     string
-	DbPort     int
-	DbUser     string
-	DbPassword string
-	DbName     string
+	DbUrl string
 }
 
 var (
@@ -63,20 +58,7 @@ func loadEnvFile() (*Config, error) {
 		AppEnv:    os.Getenv("APP_ENV"),
 		AppSecret: os.Getenv("APP_SECRET"),
 	}
-
-	// Parse integer environment variables
-	if portStr := os.Getenv("DB_PORT"); portStr != "" {
-		port, err := strconv.Atoi(portStr)
-		if err != nil {
-			return nil, fmt.Errorf("Error parsing DB_PORT: %w", err)
-		}
-		config.DbPort = port
-	}
-
-	config.DbHost = os.Getenv("DB_HOST")
-	config.DbUser = os.Getenv("DB_USER")
-	config.DbPassword = os.Getenv("DB_PASSWORD")
-	config.DbName = os.Getenv("DB_NAME")
+	config.DbUrl = os.Getenv("DB_URL")
 
 	return config, nil
 }

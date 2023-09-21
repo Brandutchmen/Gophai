@@ -8,13 +8,9 @@ import (
 
 func setupTestEnv() config.Config {
 	return config.SetConfig(config.Config{
-		AppEnv:     "production",
-		AppSecret:  "my-secret",
-		DbPort:     5432,
-		DbHost:     "localhost",
-		DbUser:     "postgres",
-		DbPassword: "my-password",
-		DbName:     "my-db",
+		AppEnv:    "production",
+		AppSecret: "my-secret",
+		DbUrl:     "postgres://username:password@localhost:5432/database_name",
 	})
 }
 
@@ -29,22 +25,9 @@ func TestGetConfig(t *testing.T) {
 	if cfg.AppSecret != "my-secret" {
 		t.Errorf("Expected AppSecret to be 'my-secret', got %s", cfg.AppSecret)
 	}
-	if cfg.DbPort != 5432 {
-		t.Errorf("Expected DbPort to be 5432, got %d", cfg.DbPort)
+	if cfg.DbUrl != "postgres://username:password@localhost:5432/database_name" {
+		t.Errorf("Expected DbUrl to be 'postgres://username:password@localhost:5432/database_name', got %s", cfg.DbUrl)
 	}
-	if cfg.DbHost != "localhost" {
-		t.Errorf("Expected DbHost to be 'localhost', got %s", cfg.DbHost)
-	}
-	if cfg.DbUser != "postgres" {
-		t.Errorf("Expected DbUser to be 'postgres', got %s", cfg.DbUser)
-	}
-	if cfg.DbPassword != "my-password" {
-		t.Errorf("Expected DbPassword to be 'my-password', got %s", cfg.DbPassword)
-	}
-	if cfg.DbName != "my-db" {
-		t.Errorf("Expected DbName to be 'my-db', got %s", cfg.DbName)
-	}
-
 }
 
 func TestConfigIsSingleton(t *testing.T) {
