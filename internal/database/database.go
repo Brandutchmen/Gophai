@@ -1,7 +1,7 @@
 package database
 
 import (
-	"gorm.io/gorm"
+	"github.com/jackc/pgx/v5"
 )
 
-var DB *gorm.DB
+var Conn *pgx.Conn
